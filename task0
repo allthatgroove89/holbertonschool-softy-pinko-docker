@@ -1,8 +1,0 @@
-# Use the latest Ubuntu image as the based
-FROM ubuntu:latest
-
-# Update APT package list and upgrade installed packages
-RUN apt-get update && apt-get upgrade -y
-
-# Set the command to echo "Hello, World!" when running container
-CMD ["echo", "Hello, World!"]

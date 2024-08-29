@@ -1,0 +1,41 @@
+version: '3.3'
+
+services:
+  backend1:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    image: softy-pinko-back-end1:task6
+    ports:
+      - "5252" # No mapping to host, internal only
+
+  backend2:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    image: softy-pinko-back-end2:task6
+    ports:
+      - "5253" # No mapping to host, internal only
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    image: softy-pinko-front-end:task6
+    ports:
+      - "9000" # No mapping to host, internal only
+    depends_on:
+      - backend1
+      - backend2
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    image: softy-pinko-proxy:task6
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend1
+      - backend2
